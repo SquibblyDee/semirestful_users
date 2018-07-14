@@ -4,6 +4,6 @@ urlpatterns = [
     # root goes to the index
     url(r'^$', views.users),
     url(r'new', views.new),
-    url(r'edit', views.edit),
-    url(r'show', views.show),
+    url(r'(?P<num>\d+)/edit', views.edit),
+    url(r'(?P<num>\d+)', views.show),
 ]
