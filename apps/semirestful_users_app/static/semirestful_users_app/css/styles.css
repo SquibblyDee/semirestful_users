@@ -1,0 +1,14 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    outline: 1px solid red;
+}
+
+a{
+    margin-right: 1%;
+    padding-right: 1%;
+}
+
+button{
+    margin-bottom: 5%;
+}
