@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages #Probably needed for flash erros
-from django.db.models.functions import Concat #Probably needed for concatenation
 
 #  import our db
 from .models import User
@@ -12,16 +11,18 @@ def users(request):
     return render(request,'semirestful_users_app/users.html', { "query" : query }, {'id' : id})
 
 def show(request, id):
-    # query = User.objects.values('id')
+    # Accepts id var from template then does a get 
+    # on that id's row before returning it as query
     query = User.objects.filter(id=id).values
     return render(request,'semirestful_users_app/show.html', { "query" : query })
 
 def new(request):
+    # The create a new user page
     return render(request,'semirestful_users_app/new.html')
 
 def edit(request, id):
-    # print(id)
-    # query = User.objects.values('id', 'name', 'email')
+    # Accepts id var from template then does a get 
+    # on the needed data from that id's row before returning it as query
     query = User.objects.filter(id=id).values('id', 'name', 'email')
     return render(request,'semirestful_users_app/edit.html', {'query': query})
 
@@ -40,7 +41,7 @@ def create(request, methods=['POST']):
     else:
         # if the errors object is empty, that means there were no errors!
         # retrieve the table to be updated, make the changes, and save
-        #build our calues for the name and email keys
+        #build our values for the name and email keys
         name = request.POST['first_name'] + " " + request.POST['last_name']
         email = request.POST['email']
         #write values to our User tables
@@ -48,24 +49,27 @@ def create(request, methods=['POST']):
         messages.success(request, "User table successfully updated")
         id = User.objects.get(name=name).id
         # redirect to a success route
-        return HttpResponseRedirect('/users/{}'.format(id))
+        return redirect('/users/{}'.format(id))
 
 def update(request, methods=['POST']):
     # pass the post data to the method we wrote and save the response in a variable called errors
+    # ID was passed into this method by a hidden form which is probably a bad way to do it.
     errors = User.objects.basic_validator(request.POST)
     # check if the errors object has anything in it
     if len(errors):
+        # Have to declare this stuff up her too or else the redirect wont work
+        id = request.POST['id']
+        id = User.objects.get(id=id).id
         # if the errors object contains anything, loop through each key-value pair and make a flash message
         for key, value in errors.items():
             messages.error(request, value)
             print("WEVE HIT AN ERROR")
         # redirect the user back to the form to fix the errors
-        return redirect('/users/new')
+        return redirect('/users/{}/edit'.format(id))
     else:
         # if the errors object is empty, that means there were no errors!
         # retrieve the table to be updated, make the changes, and save
-        #build our values for the name and email keys
-        #write values to our User tables
+        # Update the existing values in the DB table and save
         e = User.objects.get(id=request.POST['id'])
         e.id = request.POST['id']
         e.name = request.POST['first_name']+ " " + request.POST['last_name']
@@ -74,11 +78,12 @@ def update(request, methods=['POST']):
         messages.success(request, "User table successfully updated")
         id = User.objects.get(id=e.id).id
         # redirect to a success route
-        return HttpResponseRedirect('/users/{}'.format(id))
+        return redirect('/users/{}'.format(id))
 
 
 def destroy(request, id):
+    # Deletes the row of the id that is passed in as a var and print success massage to server 
     User.objects.get(id=id).delete()
-    print("DELETED")
+    print("DELETED USER RECORD: ", id)
     return redirect('/users')
     
