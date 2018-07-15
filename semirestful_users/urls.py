@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    # This is our one pattern on the project level as all routes lie behind /users
     url(r'^users', include('apps.semirestful_users_app.urls')),
 ]

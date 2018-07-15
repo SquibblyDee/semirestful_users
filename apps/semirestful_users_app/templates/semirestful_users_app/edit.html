@@ -13,6 +13,8 @@
 </head>
 <body>
     <div class="container">
+        <!-- Query object is a single dict found by id via views.py -->
+        <!-- Default field value set to it's existing data from the DB -->
         {% for row in query %}
             <h1>Edit User {{row.id}}</h1>
             <form action="/users/update", method="post">

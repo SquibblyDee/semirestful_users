@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static '/semirestful_users_app/css/styles.css' %}">
 </head>
 <body>
+    <!-- Display all the key's values in our query object which  -->
+    <!-- has been filtered to just a single dict by id via views.py -->
     {% for row in query %}
         <h1>User {{row.id}}</h1>
         <h3>Full Name: {{row.name}}</h3>

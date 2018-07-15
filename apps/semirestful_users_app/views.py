@@ -12,7 +12,7 @@ def users(request):
     return render(request,'semirestful_users_app/users.html', { "query" : query }, {'id' : id})
 
 def show(request, id):
-    query = User.objects.values('id')
+    # query = User.objects.values('id')
     query = User.objects.filter(id=id).values
     return render(request,'semirestful_users_app/show.html', { "query" : query })
 

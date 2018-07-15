@@ -12,15 +12,16 @@
 <body>
     <div class="container">
         <h1>Users</h1>
-        
+        <!-- This is the table that holds all our user data -->
         <table class="table table-striped table-bordered">
             <tr>
                 <th scope="col">id</th>
-                <th scope="col">Name</th>
+                <th scope="col">Full name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Actions</th>
             </tr>
+            <!-- For every dict in our query object print a <td> with the id, name, email, and created at data -->
             {% for row in query %}
                 <tr>
                     <td>{{row.id}}</td>
