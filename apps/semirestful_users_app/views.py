@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages #Probably needed for flash erros
 from django.db.models.functions import Concat #Probably needed for concatenation
 
@@ -9,10 +9,13 @@ from .models import User
 def users(request):
     #Query and return all the values we need for the app
     query = User.objects.values('id', 'name', 'email', 'created_at')
-    return render(request,'semirestful_users_app/users.html', { "query" : query })
+    return render(request,'semirestful_users_app/users.html', { "query" : query }, {'id' : id})
 
-def show(request, id):
-    query = User.objects.values('id', 'name', 'email', 'created_at')
+def show(request, id, methods=['POST']):
+    query = User.objects.values('id')
+    print("GOT DAT IDDDDDDDDDD", id)
+    query = User.objects.filter(id=id).values
+    print("NEW QUERRRRYYYYY", query)
     return render(request,'semirestful_users_app/show.html', { "query" : query })
 
 def new(request):
@@ -44,7 +47,8 @@ def create(request, methods=['POST']):
         messages.success(request, "User table successfully updated")
         id = User.objects.get(name=name).id
         # redirect to a success route
-        return redirect('/users/{}'.format(id), id)
+        print("REDIRECTINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
+        return HttpResponseRedirect('/users/{}'.format(id))
     
 
 def destroy(request):

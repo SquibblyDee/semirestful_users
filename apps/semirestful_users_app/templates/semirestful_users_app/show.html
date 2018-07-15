@@ -10,23 +10,26 @@
     <link rel="stylesheet" href="{% static '/semirestful_users_app/css/styles.css' %}">
 </head>
 <body>
-    <h1>users { id } </h1>
-    <!-- <p>Full Name:</p> -->
-    <!-- <p>Email:</p> -->
-    <!-- <p>Created at:</p> -->
+    {% for row in query %}
+        {% for key, value in row.items %}
+            {% if key == 'id' %}
+                <h1>User {{value}}</h1>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
     {% for row in query %}
         <tr>
         {% for key, value in row.items %}
-                {% if key == 'name' %}
-                    <td> {{key}}: {{ value }}</td>
-                {% else %}
-                    <td> {{ value }} </td>
-                {% endif %}
+            {% if key == 'name' or key == 'email' or key == 'created_at' %}
+            <td><h3> {{key}}: {{ value }} </h3></td>
+            {% endif %}
         {% endfor %}
         </tr>
     {% endfor %}
     <div class="edit_user_links">
-        <a style="border-right: 2px solid black;" href=/users/edit>Edit</a>
+        <!-- return redirect('/users/{}'.format(id)) -->
+        <!-- <a href="/{{url}}" > <img src="img.png" > </a> -->
+        <a style="border-right: 2px solid black;" href=/{{id}}>Edit</a>
         <a href=/users/show>Delete</a>
     </div>
 </body>
