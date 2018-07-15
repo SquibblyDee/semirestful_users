@@ -49,10 +49,36 @@ def create(request, methods=['POST']):
         id = User.objects.get(name=name).id
         # redirect to a success route
         return HttpResponseRedirect('/users/{}'.format(id))
-    
 
-def destroy(request, id, methods=['POST']):
+def update(request):
+    # pass the post data to the method we wrote and save the response in a variable called errors
+    errors = User.objects.basic_validator(request.POST)
+    # check if the errors object has anything in it
+    if len(errors):
+        # if the errors object contains anything, loop through each key-value pair and make a flash message
+        for key, value in errors.items():
+            messages.error(request, value)
+            print("WEVE HIT AN ERROR")
+        # redirect the user back to the form to fix the errors
+        return redirect('/users/new')
+    else:
+        # if the errors object is empty, that means there were no errors!
+        # retrieve the table to be updated, make the changes, and save
+        #build our values for the name and email keys
+        #write values to our User tables
+        e = User.objects.get(id=request.POST['id'])
+        e.id = request.POST['id']
+        e.name = request.POST['first_name']+ " " + request.POST['last_name']
+        e.email = request.POST['email']
+        e.save()
+        messages.success(request, "User table successfully updated")
+        id = User.objects.get(name=e.name).id
+        # redirect to a success route
+        return HttpResponseRedirect('/users/{}'.format(id))
+
+
+def destroy(request, id):
     User.objects.get(id=id).delete()
-    print('REQUEWST', request)
+    print("DELETED")
     return redirect('/users')
     

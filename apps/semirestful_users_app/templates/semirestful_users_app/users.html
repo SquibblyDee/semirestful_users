@@ -30,8 +30,13 @@
                             <td> {{ value }} </td>
                         {% endif %}
                 {% endfor %}
-
-                    <td><a href=/users/1>Show </a><a href=>Edit </a><a href=>Delete </a></td>
+                    {% for row in query %}
+                    {% for key, value in row.items %}
+                    {% if key == 'id' %}
+                    <td><a href=/users/{{value}}>Show</a><a href=/users/{{value}}/edit>Edit</a><a href=/users/{{value}}/destrory>Delete</a></td>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
                     <!-- <td><a href=/users/1>Show </a><a href>Edit </a><a href>Delete </a></td> -->
                 </tr>
             {% endfor %}
