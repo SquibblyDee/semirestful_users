@@ -10,10 +10,21 @@
     <link rel="stylesheet" href="{% static '/semirestful_users_app/css/styles.css' %}">
 </head>
 <body>
-    <h1>users NUMBER</h1>
-    <p>Full Name:</p>
-    <p>Email:</p>
-    <p>Created at:</p>
+    <h1>users { id } </h1>
+    <!-- <p>Full Name:</p> -->
+    <!-- <p>Email:</p> -->
+    <!-- <p>Created at:</p> -->
+    {% for row in query %}
+        <tr>
+        {% for key, value in row.items %}
+                {% if key == 'name' %}
+                    <td> {{key}}: {{ value }}</td>
+                {% else %}
+                    <td> {{ value }} </td>
+                {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
     <div class="edit_user_links">
         <a style="border-right: 2px solid black;" href=/users/edit>Edit</a>
         <a href=/users/show>Delete</a>

@@ -8,8 +8,6 @@ class UserManager(models.Manager):
             errors["first_name"] = "First name should be at least 3 characters"
         if len(postData['last_name']) < 3:
             errors["last_name"] = "Last name should be at least 3 characters"
-        # if len(postData['email']) < 10:
-            # errors["email"] = "Blog description should be at least 10 characters"
         if "@" not in postData['email']:
             errors["email"] = "Email needs to have an @"
         return errors

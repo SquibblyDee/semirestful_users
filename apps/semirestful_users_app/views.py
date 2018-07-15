@@ -7,17 +7,19 @@ from .models import User
 
 # Create your views here.
 def users(request):
+    #Query and return all the values we need for the app
     query = User.objects.values('id', 'name', 'email', 'created_at')
     return render(request,'semirestful_users_app/users.html', { "query" : query })
 
-def show(request, num):
-    return render(request,'semirestful_users_app/show.html')
+def show(request, id):
+    query = User.objects.values('id', 'name', 'email', 'created_at')
+    return render(request,'semirestful_users_app/show.html', { "query" : query })
 
 def new(request):
     return render(request,'semirestful_users_app/new.html')
 
-def edit(request, num):
-    print(num)
+def edit(request, id):
+    print(id)
     return render(request,'semirestful_users_app/edit.html')
 
 def create(request, methods=['POST']):
@@ -33,29 +35,19 @@ def create(request, methods=['POST']):
         return redirect('/users/new')
     else:
         # if the errors object is empty, that means there were no errors!
-        # retrieve the blog to be updated, make the changes, and save
+        # retrieve the table to be updated, make the changes, and save
+        #build our calues for the name and email keys
         name = request.POST['first_name'] + " " + request.POST['last_name']
-        print(name)
         email = request.POST['email']
-        print(email)
+        #write values to our User tables
         User.objects.create(name=name, email=email)
-        # user.email = email
-        # user.save()
         messages.success(request, "User table successfully updated")
+        id = User.objects.get(name=name).id
         # redirect to a success route
-        return redirect('/users/new')
+        return redirect('/users/{}'.format(id), id)
     
-    # if request.method == "POST":
-        # print("*"*50)
-        # print(request.POST)
-        # name = request.POST['first_name'] + " " + request.POST['last_name']
-        # print(name)
-        # print(request.POST['email'])
-        # print("*"*50)
-        # return redirect("/users")
-    # else:
-        # return redirect("/users")
 
 def destroy(request):
     print("DELETE SELECTED USER HERE")
     return redirect('/users')
+    
