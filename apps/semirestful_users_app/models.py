@@ -11,11 +11,10 @@ class UserManager(models.Manager):
         return errors
 
 class User(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
     # *************************
     # Connect an instance of BlogManager to our Blog model overwriting
     # the old hidden objects key with a new one with extra properties!!!

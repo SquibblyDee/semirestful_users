@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'new', views.new),
     url(r'(?P<num>\d+)/edit', views.edit),
     url(r'(?P<num>\d+)', views.show),
+    url(r'create', views.create),
 ]

@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <h1>Add a new user</h1>
-        <form action="/create" method="post">
+        <form action="users/create" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="first_name">First name:</label>
