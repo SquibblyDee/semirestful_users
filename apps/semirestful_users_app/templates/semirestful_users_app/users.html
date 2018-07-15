@@ -16,8 +16,7 @@
         <table class="table table-striped table-bordered">
             <tr>
                 <th scope="col">id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+                <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Actions</th>
@@ -25,7 +24,7 @@
             {% for row in query %}
                 <tr>
                 {% for key, value in row.items %}
-                        {% if key == 'first_name' %}
+                        {% if key == 'name' %}
                             <td> <a href=/users/{{count}}> {{ value }} </a> </td>
                         {% else %}
                             <td> {{ value }} </td>

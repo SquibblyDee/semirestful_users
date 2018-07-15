@@ -7,7 +7,7 @@ from .models import User
 
 # Create your views here.
 def users(request):
-    query = User.objects.values('id', 'first_name', 'last_name', 'email', 'created_at')
+    query = User.objects.values('id', 'name', 'email', 'created_at')
     return render(request,'semirestful_users_app/users.html', { "query" : query })
 
 def show(request, num):
