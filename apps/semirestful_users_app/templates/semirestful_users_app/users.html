@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>users index</h1>
+        <h1>Users</h1>
         
         <table class="table table-striped table-bordered">
             <tr>
@@ -23,21 +23,11 @@
             </tr>
             {% for row in query %}
                 <tr>
-                {% for key, value in row.items %}
-                        {% if key == 'name' %}
-                            <td> <a href=/users/{{id}} > {{ value }} </a> </td>
-                        {% else %}
-                            <td> {{ value }} </td>
-                        {% endif %}
-                {% endfor %}
-                    {% for row in query %}
-                    {% for key, value in row.items %}
-                    {% if key == 'id' %}
-                    <td><a href=/users/{{value}}>Show</a><a href=/users/{{value}}/edit>Edit</a><a href=/users/{{value}}/destrory>Delete</a></td>
-                    {% endif %}
-                    {% endfor %}
-                    {% endfor %}
-                    <!-- <td><a href=/users/1>Show </a><a href>Edit </a><a href>Delete </a></td> -->
+                    <td>{{row.id}}</td>
+                    <td><a href=/users/{{row.id}}><u>{{row.name}}</u></a></td>
+                    <td>{{row.email}}</td>
+                    <td>{{row.created_at}}</td>
+                    <td><a href=/users/{{row.id}}>Show</a><a href=/users/{{row.id}}/edit>Edit</a><a href=/users/{{row.id}}/destroy>Delete</a></td>
                 </tr>
             {% endfor %}
         </table>
