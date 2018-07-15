@@ -24,7 +24,7 @@
             {% for row in query %}
                 <tr>
                     <td>{{row.id}}</td>
-                    <td><a href=/users/{{row.id}}><u>{{row.name}}</u></a></td>
+                    <td><a href=/users/{{row.id}}>{{row.name}}</a></td>
                     <td>{{row.email}}</td>
                     <td>{{row.created_at}}</td>
                     <td><a href=/users/{{row.id}}>Show</a><a href=/users/{{row.id}}/edit>Edit</a><a href=/users/{{row.id}}/destroy>Delete</a></td>

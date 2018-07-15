@@ -50,7 +50,7 @@ def create(request, methods=['POST']):
         # redirect to a success route
         return HttpResponseRedirect('/users/{}'.format(id))
 
-def update(request):
+def update(request, methods=['POST']):
     # pass the post data to the method we wrote and save the response in a variable called errors
     errors = User.objects.basic_validator(request.POST)
     # check if the errors object has anything in it
@@ -72,7 +72,7 @@ def update(request):
         e.email = request.POST['email']
         e.save()
         messages.success(request, "User table successfully updated")
-        id = User.objects.get(name=e.name).id
+        id = User.objects.get(id=e.id).id
         # redirect to a success route
         return HttpResponseRedirect('/users/{}'.format(id))
 

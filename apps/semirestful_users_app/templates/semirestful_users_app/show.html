@@ -15,6 +15,8 @@
         <h3>Full Name: {{row.name}}</h3>
         <h3>Email: {{row.email}}</h3>
         <h3>Created at: {{row.created_at}}</h3>
+        <a style="border-right: 2px solid black;" href=/users/{{row.id}}/edit>Edit</a>
+        <a href=/users/{{row.id}}/destroy>Delete</a>
     {% endfor %}
 </body>
 </html>
