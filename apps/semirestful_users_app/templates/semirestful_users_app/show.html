@@ -27,10 +27,14 @@
         </tr>
     {% endfor %}
     <div class="edit_user_links">
-        <!-- return redirect('/users/{}'.format(id)) -->
-        <!-- <a href="/{{url}}" > <img src="img.png" > </a> -->
-        <a style="border-right: 2px solid black;" href=/{{id}}>Edit</a>
-        <a href=/users/show>Delete</a>
+        {% for row in query %}
+            {% for key, value in row.items %}
+                {% if key == 'id' %}
+                <a style="border-right: 2px solid black;" href=/users/{{value}}/edit>Edit</a>
+                <a href=/users/{{value}}/destroy>Delete</a>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
     </div>
 </body>
 </html>

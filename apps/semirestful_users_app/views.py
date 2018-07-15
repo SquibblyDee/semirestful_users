@@ -11,20 +11,21 @@ def users(request):
     query = User.objects.values('id', 'name', 'email', 'created_at')
     return render(request,'semirestful_users_app/users.html', { "query" : query }, {'id' : id})
 
-def show(request, id, methods=['POST']):
+def show(request, id):
     query = User.objects.values('id')
-    print("GOT DAT IDDDDDDDDDD", id)
     query = User.objects.filter(id=id).values
-    print("NEW QUERRRRYYYYY", query)
     return render(request,'semirestful_users_app/show.html', { "query" : query })
 
 def new(request):
     return render(request,'semirestful_users_app/new.html')
 
 def edit(request, id):
-    print(id)
-    return render(request,'semirestful_users_app/edit.html')
+    # print(id)
+    # query = User.objects.values('id', 'name', 'email')
+    query = User.objects.filter(id=id).values('id', 'name', 'email')
+    return render(request,'semirestful_users_app/edit.html', {'query': query})
 
+##This is called when we add a new user from the /users page
 def create(request, methods=['POST']):
     # pass the post data to the method we wrote and save the response in a variable called errors
     errors = User.objects.basic_validator(request.POST)
@@ -47,11 +48,11 @@ def create(request, methods=['POST']):
         messages.success(request, "User table successfully updated")
         id = User.objects.get(name=name).id
         # redirect to a success route
-        print("REDIRECTINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
         return HttpResponseRedirect('/users/{}'.format(id))
     
 
-def destroy(request):
-    print("DELETE SELECTED USER HERE")
+def destroy(request, id, methods=['POST']):
+    User.objects.get(id=id).delete()
+    print('REQUEWST', request)
     return redirect('/users')
     
